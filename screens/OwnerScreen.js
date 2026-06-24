@@ -18,7 +18,9 @@ export default function OwnerScreen() {
 
   const delivered   = stops.filter((s) => s.status === 'delivered').length;
   const outOnSheets = sheetStatus === 'open' ? stops.length : 0;
-  const cashToRecon = reconciliations.reduce((a, r) => a + r.expected, 0);
+  const cashToRecon = reconciliations
+    .filter((r) => r.status === 'pending')
+    .reduce((a, r) => a + r.expected, 0);
 
   function addStop() {
     if (!form.mart_name || !form.items || !form.amount) return;
